@@ -2,10 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("keywordInput");
   const addButton = document.getElementById("addKeyword");
   const keywordList = document.getElementById("keywordList");
+  const applicantNumberInput = document.getElementById("applicantNumberInput");
+  const setApplicantNumberButton = document.getElementById("setApplicantNumber");
+  const currentApplicantNumber = document.getElementById("currentApplicantNumber");
 
-  chrome.storage.local.get(["filterKeywords"], function (data) {
+  chrome.storage.local.get(["filterKeywords", "applicantNumber"], function (data) {
     const keywords = data.filterKeywords || [];
     displayKeywords(keywords);
+
+    if (data.applicantNumber >= 0) {
+      applicantNumberInput.value = data.applicantNumber;
+    }
   });
 
   addButton.addEventListener("click", function () {
@@ -23,6 +30,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       input.value = "";
+    }
+  });
+
+  setApplicantNumberButton.addEventListener("click", function () {
+    const applicantNumber = parseInt(applicantNumberInput.value.trim(), 10);
+    if (!isNaN(applicantNumber) && applicantNumber >= 0) {
+      chrome.storage.local.set({ applicantNumber: applicantNumber }, function () {
+        updateApplicantNumberDisplay(applicantNumber);
+      });
     }
   });
 
@@ -48,5 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
       listItem.appendChild(removeButton);
       keywordList.appendChild(listItem);
     });
+  }
+
+  function updateApplicantNumberDisplay(number) {
+    currentApplicantNumber.textContent = number;
   }
 });
