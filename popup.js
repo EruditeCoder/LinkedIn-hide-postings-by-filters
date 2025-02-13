@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("keywordInput");
-  const addButton = document.getElementById("addKeyword");
+  const addKeyword = document.getElementById("addKeyword");
   const keywordList = document.getElementById("keywordList");
   const applicantNumberInput = document.getElementById("applicantNumberInput");
   const setApplicantNumberButton = document.getElementById("setApplicantNumber");
@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (data.applicantNumber >= 0) {
       applicantNumberInput.value = data.applicantNumber;
+      updateApplicantNumberDisplay(data.applicantNumber);
     }
   });
 
-  addButton.addEventListener("click", function () {
+  addKeyword.addEventListener("click", function () {
     const keyword = input.value.trim();
     if (keyword) {
       chrome.storage.local.get(["filterKeywords"], function (data) {
