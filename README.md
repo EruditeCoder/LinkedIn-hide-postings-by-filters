@@ -11,8 +11,7 @@ This is a simple Firefox/Chrome extension that hides job postings on LinkedIn ma
 ## Usage
 1. Go to the LinkedIn job search page
 2. Click on the extension icon and add words to filter
-3. Refresh the page (will be automatic in a future update)
-4. Success
+3. Success - posts on left side will be removed and corresponding content on right though right pane could show a different hidden posting after refresh (will be fixed later; workaround is easy)
 
 ## Permissions
 - `storage`: To store the filter words
