@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
       chrome.storage.local.set({ applicantNumber: applicantNumber }, function () {
         updateApplicantNumberDisplay(applicantNumber);
       });
+    } else {
+      chrome.storage.local.set({ applicantNumber: Infinity })
     }
   });
 
@@ -68,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateApplicantNumberDisplay(number) {
-    currentApplicantNumber.textContent = number;
+    if (number < Infinity) {
+      currentApplicantNumber.textContent = number
+    }
   }
 });
